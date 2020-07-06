@@ -1,0 +1,29 @@
+<h1 align=center>Look at These Beers!</h1>
+<mat-form-field appearance="outline" class="search">
+    <mat-label>Look Around</mat-label>
+    <input (keyup)="applyFilter($event.target.value)" matInput>
+</mat-form-field>
+
+<div class="mat-elevation-z5" align="center" width="80%">
+<table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+        <td mat-cell *matCellDef="let todo">{{todo.title}}</td>
+    </ng-container>
+    <ng-container matColumnDef="completed">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Completed </th>
+        <td mat-cell *matCellDef="let todo">{{todo.completed}}</td>
+    </ng-container>
+    <ng-container matColumnDef="userId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> User Id </th>
+      <td mat-cell *matCellDef="let todo">{{todo.userId}}</td>
+  </ng-container>
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+    <td mat-cell *matCellDef="let todo">{{todo.id}}</td>
+</ng-container>
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[12]" showFirstLastButtons></mat-paginator>
+</div>
