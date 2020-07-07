@@ -13,6 +13,7 @@ import { MatPaginator } from '@angular/material/paginator';
 
 export class AppComponent implements OnInit {
 
+  loading = true;
   dataSource: MatTableDataSource<ITodo>;
   displayedColumns: string[] = ['userId', 'id', 'title', 'completed'];
   @ViewChild(MatSort, {static: true})sort: MatSort;
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
     );
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.loading = false;
   }
 
   applyFilter(filterValue: string) {
@@ -32,3 +34,5 @@ export class AppComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
+
+

@@ -1,4 +1,6 @@
-<h1 align=center>Look at These Beers!</h1>
+<ng-template *ngIf="loading";>
+<mat-spinner></mat-spinner>
+</ng-template>
 <mat-form-field appearance="outline" class="search">
     <mat-label>Look Around</mat-label>
     <input (keyup)="applyFilter($event.target.value)" matInput>
@@ -25,5 +27,5 @@
 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator [pageSizeOptions]="[12]" showFirstLastButtons></mat-paginator>
+<mat-paginator [pageSizeOptions]="[3, 6, 12]" showFirstLastButtons></mat-paginator>
 </div>
