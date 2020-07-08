@@ -24,18 +24,23 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     this.dataSource = new MatTableDataSource(
-      await this.placeholderService.getList()
+      await this.placeholderService.get()
     );
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.loading = false;
     this.originalFilter = this.dataSource.filterPredicate;
   }
+
   // ngOnInit(): void {
   //   this.placeholderService.getList().then((data: any[]) =>
   //   {
-  //     this.dataSource = new MatTableDataSource(data)
-  //   })
+  //     this.dataSource = new MatTableDataSource(data);
+  //     this.dataSource.sort = this.sort;
+  //     this.dataSource.paginator = this.paginator;
+  //     this.loading = false;
+  //     this.originalFilter = this.dataSource.filterPredicate;
+  //   });
   // }
 
   applyFilter(filterValue: any) {
@@ -43,15 +48,23 @@ export class AppComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
   buttonToggle(event: MatButtonToggleChange): void {
-    switch(event.value) {
+    switch (event.value) {
       case 'id':
+        this.dataSource.filterPredicate = this.filterById;
         break;
       case 'userId':
+        this.dataSource.filterPredicate = this.filterByUserId;
         break;
       default:
         this.dataSource.filterPredicate = this.originalFilter;
         break;
     }
+  }
+  private filterById(data: any, filter: string): boolean {
+    return data.id === +filter;
+  }
+  private filterByUserId(data: any, filter: string): boolean {
+    return data.userId === +filter;
   }
 }
 
