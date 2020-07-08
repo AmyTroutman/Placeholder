@@ -1,12 +1,20 @@
-<ng-template *ngIf="loading";>
+<ng-template [ngIf]="loading";>
 <mat-spinner></mat-spinner>
 </ng-template>
-<mat-form-field appearance="outline" class="search">
-    <mat-label>Look Around</mat-label>
+<mat-form-field appearance="outline" class="search adjust-search">
+    <mat-label>Search todos</mat-label>
     <input (keyup)="applyFilter($event.target.value)" matInput>
 </mat-form-field>
+<div class="adjust-toggle">
+    <mat-button-toggle-group value="all">
+        <mat-button-toggle value="Id">Id</mat-button-toggle>
+        <mat-button-toggle value="User Id">User Id</mat-button-toggle>
+        <mat-button-toggle value="All">All</mat-button-toggle>
 
-<div class="mat-elevation-z5" align="center" width="80%">
+    </mat-button-toggle-group>
+</div>
+
+<div class="mat-elevation-z5 adjust" align="center">
 <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>

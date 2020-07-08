@@ -4,6 +4,7 @@ import { PlaceholderService } from './placeholder.service';
 import { ITodo } from './ITodo';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatButtonToggle } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
 
   loading = true;
   dataSource: MatTableDataSource<ITodo>;
-  displayedColumns: string[] = ['userId', 'id', 'title', 'completed'];
+  displayedColumns: string[] = ['id', 'title', 'completed', 'userId'];
   @ViewChild(MatSort, {static: true})sort: MatSort;
   @ViewChild(MatPaginator, {static: true})paginator: MatPaginator;
   constructor(private placeholderService: PlaceholderService) {}
@@ -28,6 +29,12 @@ export class AppComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.loading = false;
   }
+  // ngOnInit(): void {
+  //   this.placeholderService.getList().then((data: any[]) =>
+  //   {
+  //     this.dataSource = new MatTableDataSource(data)
+  //   })
+  // }
 
   applyFilter(filterValue: string) {
     // const filterValue = (event.target as HTMLInputElement).value;
