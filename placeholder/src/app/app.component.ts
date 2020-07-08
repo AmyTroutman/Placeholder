@@ -4,7 +4,7 @@ import { PlaceholderService } from './placeholder.service';
 import { ITodo } from './ITodo';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatButtonToggle } from '@angular/material/button-toggle';
+import { MatButtonToggle, MatButtonToggleChange } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'completed', 'userId'];
   @ViewChild(MatSort, {static: true})sort: MatSort;
   @ViewChild(MatPaginator, {static: true})paginator: MatPaginator;
+  originalFilter: (data: any, filter: string) => boolean;
   constructor(private placeholderService: PlaceholderService) {}
 
   async ngOnInit() {
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.loading = false;
+    this.originalFilter = this.dataSource.filterPredicate;
   }
   // ngOnInit(): void {
   //   this.placeholderService.getList().then((data: any[]) =>
@@ -36,9 +38,20 @@ export class AppComponent implements OnInit {
   //   })
   // }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: any) {
     // const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  buttonToggle(event: MatButtonToggleChange): void {
+    switch(event.value) {
+      case 'id':
+        break;
+      case 'userId':
+        break;
+      default:
+        this.dataSource.filterPredicate = this.originalFilter;
+        break;
+    }
   }
 }
 
